@@ -5,7 +5,7 @@ nothrow:
 pragma(printf)
 void printk(scope const char* fmt, ...);
 
-void main()
+noreturn main()
  {
     string ldc = "LDC";
     printk("Hello from '%.*s'!\n", cast(int)ldc.length, ldc.ptr);
