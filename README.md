@@ -19,5 +19,5 @@ $ west build -b qemu_cortex_m3 samples/hello_world
 $ make -C samples/ldc_hello
 $ west build -t run
 (...)
-Hello from D!
+Hello from 'LDC'!
 ```
