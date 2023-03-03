@@ -1,6 +1,6 @@
-.PHONY: all build cp clean
+.PHONY: all build clean
 
-all: build cp
+all: build
 
 build:
 	ldc2 --mtriple=thumbv7em-none-linux-gnueabi \
@@ -8,12 +8,8 @@ build:
 		--defaultlib= \
 		--float-abi=soft --lib \
 		--relocation-model=static \
-		-g -oflibapp.a \
-		hello.d
-	
-
-cp:
-	cp libapp.a ../../build/app/
+		-g -of=lib/libhello.a \
+		d_src/hello.d
 
 clean:
-	$(RM) libapp.a hello.o
+	$(RM) lib/libhello.a hello.o

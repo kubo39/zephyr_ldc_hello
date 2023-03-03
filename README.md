@@ -15,8 +15,7 @@ For Qemu on Zephyr, read https://docs.zephyrproject.org/latest/develop/beyond-GS
 
 ```console
 $ cd $ZEPHYR_BASE
-$ west build -b qemu_cortex_m3 samples/hello_world
-$ make -C samples/ldc_hello
+$ west build -b qemu_cortex_m3 samples/ldc_hello
 $ west build -t run
 (...)
 Hello from 'LDC'!
