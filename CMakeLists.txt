@@ -6,6 +6,18 @@ project(ldc_hello)
 
 target_sources(app PRIVATE src/main.c)
 
+if(${ARCH} STREQUAL "posix" OR ${ARCH} STREQUAL "x86")
+    set(ldc_target i686-unknown-linux-gnu)
+elseif(${ARCH} STREQUAL "arm")
+    if(CONFIG_CPU_CORTEX_M3)
+        set(ldc_target thumbv7em-none-linux-gnueabi)
+    else()
+        message(FATAL_ERROR "ARCH ${ARCH} not supported")
+    endif()
+else()
+    message(FATAL_ERROR "ARCH ${ARCH} not supported")
+endif()
+
 include(ExternalProject)
 set(ldc_src_dir ${CMAKE_CURRENT_SOURCE_DIR})
 ExternalProject_Add(
@@ -15,7 +27,10 @@ ExternalProject_Add(
     BUILD_IN_SOURCE 1
     BUILD_ALWAYS    1
     CONFIGURE_COMMAND   ""
-    BUILD_COMMAND make
+    BUILD_COMMAND
+        env
+        "LDC_TARGET=${ldc_target}"
+        make
     INSTALL_COMMAND ""
     BUILD_BYPRODUCTS    ${ldc_src_dir}/lib/libhello.a
 )
