@@ -1,7 +1,5 @@
 # LDC on Zephyr: Hello!
 
-Currently, runs on Qemu:Cortex-M3 only.
-
 ## Prerequiresites
 
 - LDC
