@@ -29,6 +29,6 @@ extern (C) noreturn d_main()
     int[2] arr;
     int x;
     foreach (i; 0..3)
-        x = arr[i];
+        x = arr[i];  // assertion failed: "array index out of bounds"
     while (true) {}
 }
