@@ -41,4 +41,4 @@ Hello from 'LDC'!
 assertion "" failed: file "array index out of bounds", line 40362
 ```
 
-To avoid this, we use `__assert_fail` on Musl target.
+To avoid this, we use `__assert_fail` on Musl target and wraps newlib's `__assert_func`.
