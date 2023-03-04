@@ -1,18 +1,21 @@
 .PHONY: all build clean
 
 ifeq (,$(LDC_TARGET))
-LDC_TARGET=thumbv7em-none-linux-gnueabi
+LDC_TARGET=thumbv7em-none-linux-musl-gnueabi
 endif
 
 all: build
 
 build:
 	ldc2 --mtriple=$(LDC_TARGET) \
-		--betterC --boundscheck=off \
+		--betterC \
+		--checkaction=C \
 		--defaultlib= \
-		--float-abi=soft --lib \
+		--float-abi=soft \
+		--lib \
 		--relocation-model=static \
-		-g -of=lib/libhello.a \
+		-g \
+		-of=lib/libhello.a \
 		d_src/hello.d
 
 clean:
