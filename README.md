@@ -23,7 +23,7 @@ exit
 
 ## Random Notes
 
-### `multiple definition of `__assert'`
+### multiple definition of `__assert`
 
 For arrayboundscheck, we defined a `__assert` function on `thumb7em-none-linux-gnueabi` target.
 
