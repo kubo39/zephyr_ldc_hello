@@ -17,40 +17,28 @@ $ west build -b qemu_cortex_m3 samples/ldc_hello
 $ west build -t run
 (...)
 Hello from 'LDC'!
-assertion "array index out of bounds" failed: file "d_src/hello.d", line 30 (hello.d_main)
+assertion "array index out of bounds" failed: file "d_src/hello.d", line 29, function: hello.d_main
 exit
 ```
 
 ## Random Notes
 
-### multiple definition of `__assert`
+### `__assert_fail` with Musl target
 
-For arrayboundscheck, we defined a `__assert` function on `thumb7em-none-linux-gnueabi` target.
+By default, `assert(false)` shows a bizarre message on `thumb7em-none-linux-gnueabi` target due to incompatible arguments.
 
-```d
-private extern (C) noreturn __assert(const(char)* msg, const(char)* file, int line)
-{
-    assert_print("assertion \"%s\" failed: file \"%s\", line %d\n", msg, file, line);
-    abort();
-}
 ```
-
-Without this, `assert(false)` shows a bizarre message.
+// LDC: https://github.com/ldc-developers/ldc/blob/9976807e0e1acf24edfb4ba35d28c19a3f0227f2/gen/runtime.cpp#L367
+//     void __assert(const char *msg, const char *file, unsigned line)
+// newlib: https://github.com/bminor/newlib/blob/80cda9bbda04a1e9e3bee5eadf99061ed69ca5fb/newlib/libc/stdlib/assert.c#L68-L70
+//     void __assert(const char *file, int line, const char *failedexpr)
+```
 
 ```console
 $ west build -t run
 (...)
 Hello from 'LDC'!
 assertion "" failed: file "array index out of bounds", line 40362
-```
-
-However, we got this error messages.
-
-```console
-$ west build -b qemu_cortex_m3 samples/ldc_hello
-(...)
-/home/kubo39/.local/zephyr-sdk-0.15.2/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.1.0/../../../../arm-zephyr-eabi/bin/ld.bfd: /home/kubo39/.local/zephyr-sdk-0.15.2/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-assert.o): in function `__assert':
-assert.c:(.text.__assert+0x0): multiple definition of `__assert'; /home/kubo39/zephyrproject/zephyr/samples/ldc_hello/lib/libhello.a(hello.o):/home/kubo39/zephyrproject/zephyr/samples/ldc_hello/d_src/hello.d:19: first defined here
 ```
 
 To avoid this, we use `__assert_fail` on Musl target.
