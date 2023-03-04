@@ -13,7 +13,7 @@ extern (C)
 }
 
 // Due to multiple definition __assert error, we use musl target here.
-// See https://github.com/dlang/dmd/blob/d1b4eec3134e2798d3935ef8d8d1622a8255cfc0/compiler/src/dmd/e2ir.d#L6942
+// See https://github.com/ldc-developers/ldc/blob/9976807e0e1acf24edfb4ba35d28c19a3f0227f2/gen/runtime.cpp#L377-L379
 private extern (C) void __assert_fail(const(char)* msg, const(char)* file, int line, const(char)* func)
 {
     assert_print("assertion \"%s\" failed: file \"%s\", line %d (%s)\n", msg, file, line, func);
