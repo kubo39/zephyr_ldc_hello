@@ -17,6 +17,6 @@ $ west build -b qemu_cortex_m3 samples/ldc_hello
 $ west build -t run
 (...)
 Hello from 'LDC'!
-assertion "array index out of bounds" failed: file "d_src/hello.d", line 30
+assertion "array index out of bounds" failed: file "d_src/hello.d", line 30 (hello.d_main)
 exit
 ```
