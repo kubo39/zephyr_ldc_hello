@@ -23,13 +23,27 @@ private extern (C) @cold noreturn __assert_fail(const(char)* msg, const(char)* f
     __assert_func(file, line, func, msg);
 }
 
+void scope_test()
+{
+    scope(exit) printf("from scope(exit).\n");
+}
+
 extern (C) noreturn d_main()
  {
-    string ldc = "LDC";
-    printf("Hello from '%.*s'!\n", cast(int)ldc.length, ldc.ptr);
+    // using standard C library functions.
+    printf("Hello from 'LDC'!\n");
+
+    // using scope(exit).
+    scope_test();
+
+    // get typeinfo.
     int[2] arr;
-    int x;
+    string typeinfo = typeof(arr).stringof;
+    printf("TypeInfo arr: '%.*s'\n", cast(int) typeinfo.length, typeinfo.ptr);
+
+    // arrayboundscheck.
     foreach (i; 0..3)
-        x = arr[i];  // assertion "array index out of bounds" failed!
+        arr[i]++;  // assertion "array index out of bounds" failed!
+
     while (true) {}
 }

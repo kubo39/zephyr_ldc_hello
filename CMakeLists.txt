@@ -41,5 +41,4 @@ add_dependencies(
     ldc_project
 )
 set_target_properties(ldc_lib PROPERTIES IMPORTED_LOCATION ${ldc_src_dir}/lib/libhello.a)
-
 target_link_libraries(app PUBLIC ldc_lib)

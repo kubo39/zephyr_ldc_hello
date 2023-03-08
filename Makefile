@@ -8,12 +8,12 @@ all: build
 
 build:
 	ldc2 --mtriple=$(LDC_TARGET) \
-		--betterC \
 		--checkaction=C \
-		--defaultlib= \
 		--float-abi=soft \
 		--lib \
+		--nogc \
 		--relocation-model=static \
+		--preview=dip1000 \
 		-g \
 		-of=lib/libhello.a \
 		d_src/hello.d
