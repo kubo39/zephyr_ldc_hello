@@ -41,6 +41,9 @@ extern (C) noreturn d_main()
     string typeinfo = typeof(arr).stringof;
     printf("TypeInfo arr: '%.*s'\n", cast(int) typeinfo.length, typeinfo.ptr);
 
+    // double.
+    printf("double value: %lf\n", 2.0 - 1.8);
+
     // arrayboundscheck.
     foreach (i; 0..3)
         arr[i]++;  // assertion "array index out of bounds" failed!
