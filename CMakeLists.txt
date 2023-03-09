@@ -28,9 +28,11 @@ ExternalProject_Add(
     BUILD_ALWAYS    1
     CONFIGURE_COMMAND   ""
     BUILD_COMMAND
-        env
-        "LDC_TARGET=${ldc_target}"
-        make
+        dub
+        build
+        -f
+        -b debug
+        --arch=${ldc_target}
     INSTALL_COMMAND ""
     BUILD_BYPRODUCTS    ${ldc_src_dir}/lib/libhello.a
 )

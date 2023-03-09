@@ -3,7 +3,7 @@
 ## Prerequiresites
 
 - LDC
-- GNU Make
+- Dub
 
 For Zephyr, read https://docs.zephyrproject.org/latest/develop/getting_started/index.html
 
