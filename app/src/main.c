@@ -1,5 +1,6 @@
 extern __attribute__((noreturn)) void d_main();
 
-void main() {
+int main() {
     d_main();
+    return 0;
 }

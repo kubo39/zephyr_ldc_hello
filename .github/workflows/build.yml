@@ -1,0 +1,37 @@
+name: Build
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          path: ldc_hello
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+
+      - name: Setup Zephyr project
+        uses: zephyrproject-rtos/action-zephyr-setup@v1
+        with:
+          app-path: ldc_hello
+          toolchains: arm-zephyr-eabi
+
+      - name: Setup D
+        uses: dlang-community/setup-dlang@v2
+        with:
+          compiler: ldc
+
+      - name: Build firmware
+        working-directory: ldc_hello
+        shell: bash
+        run: |
+          west build -b qemu_cortex_m3 app
+          west twister -T app -W -j 1 -v

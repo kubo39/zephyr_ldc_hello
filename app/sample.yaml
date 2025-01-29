@@ -1,0 +1,9 @@
+sample:
+  description: Hello world, but for D
+  name: ldc_hello
+common:
+  build_only: true
+  platform_allow:
+    - qemu_cortex_m3
+tests:
+  app.default: {}
